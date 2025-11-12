@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
@@ -33,12 +34,14 @@ function VenueImageSlider({ images, name }: { images: string[]; name: string }) 
       <div className="embla h-full" ref={emblaRef}>
         <div className="embla__container flex h-full">
           {images.map((image, index) => (
-            <div key={index} className="embla__slide flex-[0_0_100%] min-w-0">
-              <img
+            <div key={index} className="embla__slide flex-[0_0_100%] min-w-0 relative">
+              <Image
                 src={image}
                 alt={`${name} - Image ${index + 1}`}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
                 loading="lazy"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
           ))}

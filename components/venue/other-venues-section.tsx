@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { venues } from '@/lib/venues'
 
@@ -10,11 +11,13 @@ interface OtherVenuesSectionProps {
 function VenueImage({ image, name }: { image: string; name: string }) {
   return (
     <div className="relative aspect-video overflow-hidden bg-gray-100">
-      <img
+      <Image
         src={image}
         alt={name}
-        className="w-full h-full object-cover"
+        fill
+        className="object-cover"
         loading="lazy"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
     </div>
   )

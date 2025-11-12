@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { MultiStepForm } from '@/components/form/multi-step-form'
 import { VenueDetailsCard } from './venue-details-card'
 import { OtherVenuesSection } from './other-venues-section'
@@ -52,12 +53,14 @@ export function VenueDetailPage({ venueId }: VenueDetailPageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 items-stretch">
           {/* Left: Image and Explore Section */}
           <div className="flex flex-col gap-2">
-            <div className="relative flex-1 overflow-hidden rounded-lg border-2 border-black bg-gray-100">
-              <img
+            <div className="relative flex-1 overflow-hidden rounded-lg border-2 border-black bg-gray-100 aspect-video">
+              <Image
                 src={image1}
                 alt={venue.name}
-                className="w-full h-full object-cover"
-                loading="eager"
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
             {/* Explore Other Venues Section */}
