@@ -116,12 +116,29 @@ export function HomePageFinder() {
     })
   }, [location, capacity])
 
-  const hasFilters = location || capacity || coffeeMethod
+  // Coffee method is for user input/admin personalization only, not filtering
+  const hasFilters = location || capacity
   const showSpecialMessage = capacity === '0-30' || capacity === '31-60'
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 flex items-center justify-center" style={{ backgroundColor: '#F3D052' }}>
-      <div className="max-w-7xl mx-auto w-full">
+    <div className="relative min-h-screen px-4 sm:px-6 lg:px-8 flex items-center justify-center overflow-hidden">
+      {/* Blurred Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/williamsburg.webp"
+          alt="Williamsburg venue"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+          style={{ filter: 'blur(3px)', transform: 'scale(1.1)' }}
+        />
+        {/* Overlay with yellow tint */}
+        <div className="absolute inset-0 bg-[#F3D052]/80" />
+      </div>
+      
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
         {/* Heading */}
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 uppercase tracking-tight">
@@ -253,6 +270,21 @@ export function HomePageFinder() {
             View All
           </Link>
         </div>
+      </div>
+
+      {/* Footer Credit - Fixed at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 pb-40 text-center">
+        <p className="text-sm text-black font-mono">
+          This website was made by{' '}
+          <a
+            href="https://yopablo.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-black/70 transition-colors"
+          >
+            Pablo
+          </a>
+        </p>
       </div>
     </div>
   )

@@ -52,7 +52,7 @@ export function VenueDetailPage({ venueId }: VenueDetailPageProps) {
         {/* Row 2: Image (left) | Form Top (right) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 items-stretch">
           {/* Left: Image and Explore Section */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             <div className="relative flex-1 overflow-hidden rounded-lg border-2 border-black bg-gray-100 aspect-video">
               <Image
                 src={image1}
@@ -64,17 +64,19 @@ export function VenueDetailPage({ venueId }: VenueDetailPageProps) {
               />
             </div>
             {/* Explore Other Venues Section */}
-            <button
-              onClick={scrollToOtherVenues}
-              className="relative flex-1 bg-black rounded-lg border-2 border-black shadow-sm p-6 hover:bg-black/90 transition-colors group"
-            >
-              <h3 className="text-2xl font-bold text-white mb-2 uppercase group-hover:underline">
-                Explore Our Other Venues
-              </h3>
-              <p className="text-white font-mono text-sm">
-                Discover more stunning locations
-              </p>
-            </button>
+            <div className="flex items-center justify-between gap-4 p-4 border border-black/20 rounded-lg bg-white/50">
+              <div>
+                <p className="text-sm text-black font-mono">
+                  Explore our other venues
+                </p>
+              </div>
+              <button
+                onClick={scrollToOtherVenues}
+                className="px-4 py-2 border border-black text-black bg-white hover:bg-black hover:text-white transition-colors text-sm font-mono uppercase whitespace-nowrap"
+              >
+                View All
+              </button>
+            </div>
           </div>
 
           {/* Right: Form - Top Part (Step 1: Event Basics) */}
