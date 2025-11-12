@@ -6,7 +6,8 @@ import { InquiryStatus, ActivityType } from '@/lib/types'
 import { getVenueById } from '@/lib/venues'
 import { getLeadScoreEmoji } from '@/lib/scoring'
 import { format } from 'date-fns'
-import { X, Mail, Phone, Copy, Trash2, MessageSquare, PhoneCall, Mail as MailIcon, Calendar, Clock, Plus } from 'lucide-react'
+import { X, Mail, Phone, Copy, Trash2, MessageSquare, PhoneCall, Mail as MailIcon, Calendar, Clock, Plus, FileText } from 'lucide-react'
+import { generateEmail } from '@/lib/email-generator'
 
 export function DetailPanel() {
   const { inquiries, updateInquiryStatus, deleteInquiry, addActivity, updateLastContacted, setFollowUpDate } = useInquiriesStore()
@@ -15,6 +16,8 @@ export function DetailPanel() {
   const [activityType, setActivityType] = useState<ActivityType>('note')
   const [showNoteInput, setShowNoteInput] = useState(false)
   const [followUpDateInput, setFollowUpDateInput] = useState('')
+  const [showEmailGenerator, setShowEmailGenerator] = useState(false)
+  const [generatedEmail, setGeneratedEmail] = useState('')
 
   if (!selectedInquiryId) return null
 
@@ -32,7 +35,7 @@ export function DetailPanel() {
     }
   }
 
-  const handleCopyEmail = () => {
+  const handleCopyEmailAddress = () => {
     navigator.clipboard.writeText(inquiry.contactInfo.email)
   }
 
@@ -94,6 +97,20 @@ export function DetailPanel() {
       default:
         return <MessageSquare className="w-4 h-4" />
     }
+  }
+
+  const handleGenerateEmail = () => {
+    const email = generateEmail(inquiry)
+    setGeneratedEmail(email)
+    setShowEmailGenerator(true)
+  }
+
+  const handleCopyGeneratedEmail = () => {
+    navigator.clipboard.writeText(generatedEmail)
+    addActivity(inquiry.id, {
+      type: 'email',
+      content: 'Generated and copied email template',
+    })
   }
 
   return (
@@ -159,7 +176,7 @@ export function DetailPanel() {
                   {inquiry.contactInfo.email}
                 </span>
                 <button
-                  onClick={handleCopyEmail}
+                  onClick={handleCopyEmailAddress}
                   className="ml-auto text-gray-400 hover:text-gray-600"
                   title="Copy email"
                 >
@@ -447,6 +464,50 @@ export function DetailPanel() {
             </div>
           </div>
 
+          {/* Email Generator */}
+          <div className="border-t border-gray-200 pt-4">
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              EMAIL TEMPLATE
+            </h3>
+            {!showEmailGenerator ? (
+              <button
+                onClick={handleGenerateEmail}
+                className="w-full px-4 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-medium"
+              >
+                <FileText className="w-5 h-5" />
+                Generate Custom Email
+              </button>
+            ) : (
+              <div className="space-y-3">
+                <div className="bg-gray-50 border border-gray-200 rounded-md p-4">
+                  <textarea
+                    value={generatedEmail}
+                    onChange={(e) => setGeneratedEmail(e.target.value)}
+                    className="w-full h-64 px-3 py-2 border border-gray-300 rounded-md text-sm font-mono bg-white resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleCopyGeneratedEmail}
+                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-medium"
+                  >
+                    <Copy className="w-4 h-4" />
+                    Copy Email
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowEmailGenerator(false)
+                      setGeneratedEmail('')
+                    }}
+                    className="px-4 py-2 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
           <div className="border-t border-gray-200 pt-4">
             <div className="text-sm text-gray-500 mb-4">
               Submitted:{' '}
@@ -456,11 +517,11 @@ export function DetailPanel() {
 
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={handleCopyEmail}
+                onClick={handleCopyEmailAddress}
                 className="px-4 py-2 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
               >
                 <Copy className="w-4 h-4" />
-                Copy Email
+                Copy Email Address
               </button>
               <button
                 onClick={handleMarkContacted}
