@@ -62,12 +62,12 @@ export function EventBasicsStep({ onNext, initialData }: EventBasicsStepProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Which Devocion location?
+        <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
+          WHICH DEVOCION LOCATION?
         </label>
         <select
           {...register('venueId')}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-3 py-2 border-2 border-black bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black font-mono"
         >
           <option value="">Select a venue</option>
           {venues.map((venue) => (
@@ -77,17 +77,17 @@ export function EventBasicsStep({ onNext, initialData }: EventBasicsStepProps) {
           ))}
         </select>
         {errors.venueId && (
-          <p className="mt-1 text-sm text-red-600">{errors.venueId.message}</p>
+          <p className="mt-1 text-sm text-red-600 font-mono">{errors.venueId.message}</p>
         )}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Event type
+        <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
+          EVENT TYPE
         </label>
         <select
           {...register('eventType')}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-3 py-2 border-2 border-black bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black font-mono"
         >
           <option value="">Select event type</option>
           <option value="Product Launch">Product Launch</option>
@@ -98,13 +98,13 @@ export function EventBasicsStep({ onNext, initialData }: EventBasicsStepProps) {
           <option value="Other">Other</option>
         </select>
         {errors.eventType && (
-          <p className="mt-1 text-sm text-red-600">{errors.eventType.message}</p>
+          <p className="mt-1 text-sm text-red-600 font-mono">{errors.eventType.message}</p>
         )}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Preferred date(s) (up to 3)
+        <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
+          PREFERRED DATE(S) (UP TO 3)
         </label>
         <div className="space-y-2">
           {[0, 1, 2].map((index) => (
@@ -112,12 +112,12 @@ export function EventBasicsStep({ onNext, initialData }: EventBasicsStepProps) {
               key={index}
               type="date"
               {...register(`preferredDates.${index}` as const)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border-2 border-black bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black font-mono"
             />
           ))}
         </div>
         {errors.preferredDates && (
-          <p className="mt-1 text-sm text-red-600">
+          <p className="mt-1 text-sm text-red-600 font-mono">
             {errors.preferredDates.message}
           </p>
         )}
@@ -125,43 +125,43 @@ export function EventBasicsStep({ onNext, initialData }: EventBasicsStepProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Start time
+          <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
+            START TIME
           </label>
           <input
             type="time"
             {...register('startTime')}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border-2 border-black bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black font-mono"
           />
           {errors.startTime && (
-            <p className="mt-1 text-sm text-red-600">
+            <p className="mt-1 text-sm text-red-600 font-mono">
               {errors.startTime.message}
             </p>
           )}
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            End time
+          <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
+            END TIME
           </label>
           <input
             type="time"
             {...register('endTime')}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border-2 border-black bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black font-mono"
           />
           {errors.endTime && (
-            <p className="mt-1 text-sm text-red-600">{errors.endTime.message}</p>
+            <p className="mt-1 text-sm text-red-600 font-mono">{errors.endTime.message}</p>
           )}
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Expected guest count
+        <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
+          EXPECTED GUEST COUNT
         </label>
         <select
           {...register('guestCount')}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-3 py-2 border-2 border-black bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black font-mono"
         >
           <option value="">Select guest count</option>
           <option value="0-30">0-30</option>
@@ -170,7 +170,7 @@ export function EventBasicsStep({ onNext, initialData }: EventBasicsStepProps) {
           <option value="101+">101+</option>
         </select>
         {errors.guestCount && (
-          <p className="mt-1 text-sm text-red-600">
+          <p className="mt-1 text-sm text-red-600 font-mono">
             {errors.guestCount.message}
           </p>
         )}
@@ -179,9 +179,9 @@ export function EventBasicsStep({ onNext, initialData }: EventBasicsStepProps) {
       <div className="flex justify-end">
         <button
           type="submit"
-          className="px-6 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-800 transition-colors"
+          className="px-6 py-2 border-2 border-black bg-black text-white rounded-md hover:bg-black/90 transition-colors font-bold uppercase"
         >
-          Continue →
+          CONTINUE →
         </button>
       </div>
     </form>

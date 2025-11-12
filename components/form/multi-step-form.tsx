@@ -28,23 +28,31 @@ const requirementsSchema = z.object({
 
 type RequirementsFormData = z.infer<typeof requirementsSchema>
 
-export function MultiStepForm() {
+interface MultiStepFormProps {
+  venueId?: string
+}
+
+export function MultiStepForm(props: MultiStepFormProps = {}) {
+  const { venueId: propVenueId } = props
   const router = useRouter()
   const searchParams = useSearchParams()
   const { currentStep, formData, setCurrentStep, resetForm } = useFormStore()
   const { addInquiry } = useInquiriesStore()
   const [step, setStep] = useState(currentStep)
 
+  // Get venueId from prop, searchParams, or formData (in that order)
+  const venueId = propVenueId || searchParams.get('venue') || formData.eventBasics?.venueId
+
   useEffect(() => {
-    const venueId = searchParams.get('venue')
     if (venueId && step === 1 && !formData.eventBasics?.venueId) {
       useFormStore.getState().updateFormData({
         eventBasics: { venueId },
       })
     }
-  }, [searchParams, step, formData.eventBasics?.venueId])
+  }, [venueId, step, formData.eventBasics?.venueId])
 
   const handleStep1Next = (data: EventBasics) => {
+    setSelectedVenueId(data.venueId)
     setStep(2)
     setCurrentStep(2)
   }
@@ -116,30 +124,40 @@ export function MultiStepForm() {
     { number: 3, title: 'Contact & Budget' },
   ]
 
+  const [selectedVenueId, setSelectedVenueId] = useState<string | null>(venueId || null)
+
+  useEffect(() => {
+    if (formData.eventBasics?.venueId) {
+      setSelectedVenueId(formData.eventBasics.venueId)
+    } else if (venueId) {
+      setSelectedVenueId(venueId)
+    }
+  }, [formData.eventBasics?.venueId, venueId])
+
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="bg-white rounded-lg border-2 border-black shadow-sm p-8">
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           {steps.map((s, index) => (
             <div key={s.number} className="flex items-center flex-1">
               <div className="flex flex-col items-center flex-1">
                 <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
+                  className={`w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 ${
                     step >= s.number
-                      ? 'bg-gray-900 text-white'
-                      : 'bg-gray-200 text-gray-600'
+                      ? 'bg-black text-white border-black'
+                      : 'bg-white text-black border-black'
                   }`}
                 >
                   {s.number}
                 </div>
-                <span className="mt-2 text-xs text-gray-600 text-center">
+                <span className="mt-2 text-xs text-black text-center font-mono uppercase">
                   {s.title}
                 </span>
               </div>
               {index < steps.length - 1 && (
                 <div
                   className={`h-1 flex-1 mx-2 ${
-                    step > s.number ? 'bg-gray-900' : 'bg-gray-200'
+                    step > s.number ? 'bg-black' : 'bg-gray-300'
                   }`}
                 />
               )}
@@ -148,11 +166,14 @@ export function MultiStepForm() {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+      <div>
         {step === 1 && (
           <EventBasicsStep
             onNext={handleStep1Next}
-            initialData={formData.eventBasics}
+            initialData={{
+              ...formData.eventBasics,
+              venueId: venueId || formData.eventBasics?.venueId,
+            }}
           />
         )}
         {step === 2 && (

@@ -71,7 +71,7 @@ export const mockInquiries: Inquiry[] = [
   {
     id: '2',
     eventBasics: {
-      venueId: 'tribeca',
+      venueId: 'flatiron',
       eventType: 'Product Launch',
       preferredDates: ['2024-12-20'],
       startTime: '17:00',
@@ -116,7 +116,7 @@ export const mockInquiries: Inquiry[] = [
       }
     ),
     estimatedPrice: estimatePrice(
-      'tribeca',
+      'flatiron',
       { dayHours: true, eveningHours: true },
       '17:00',
       '23:00',
@@ -198,7 +198,7 @@ export const mockInquiries: Inquiry[] = [
   {
     id: '4',
     eventBasics: {
-      venueId: 'soho',
+      venueId: 'nomad',
       eventType: 'Meeting',
       preferredDates: ['2024-12-10'],
       startTime: '14:00',
@@ -243,7 +243,7 @@ export const mockInquiries: Inquiry[] = [
       }
     ),
     estimatedPrice: estimatePrice(
-      'soho',
+      'nomad',
       { dayHours: true, eveningHours: false },
       '14:00',
       '18:00',
@@ -324,7 +324,7 @@ export const mockInquiries: Inquiry[] = [
   {
     id: '6',
     eventBasics: {
-      venueId: 'chelsea',
+      venueId: 'midtown',
       eventType: 'Offsite',
       preferredDates: ['2024-12-05', '2024-12-06'],
       startTime: '10:00',
@@ -369,7 +369,7 @@ export const mockInquiries: Inquiry[] = [
       }
     ),
     estimatedPrice: estimatePrice(
-      'chelsea',
+      'midtown',
       { dayHours: true, eveningHours: false },
       '10:00',
       '16:00',
@@ -514,7 +514,7 @@ export const mockInquiries: Inquiry[] = [
   {
     id: '9',
     eventBasics: {
-      venueId: 'soho',
+      venueId: 'nomad',
       eventType: 'Private Party',
       preferredDates: ['2024-12-18'],
       startTime: '18:00',
@@ -559,7 +559,7 @@ export const mockInquiries: Inquiry[] = [
       }
     ),
     estimatedPrice: estimatePrice(
-      'soho',
+      'nomad',
       { dayHours: false, eveningHours: true },
       '18:00',
       '22:00',
@@ -577,7 +577,7 @@ export const mockInquiries: Inquiry[] = [
   {
     id: '10',
     eventBasics: {
-      venueId: 'chelsea',
+      venueId: 'midtown',
       eventType: 'Other',
       preferredDates: ['2024-12-25'],
       startTime: '19:00',
@@ -622,7 +622,7 @@ export const mockInquiries: Inquiry[] = [
       }
     ),
     estimatedPrice: estimatePrice(
-      'chelsea',
+      'midtown',
       { dayHours: false, eveningHours: true },
       '19:00',
       '23:00',

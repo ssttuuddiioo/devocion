@@ -70,7 +70,7 @@ export function RequirementsStep({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-3">
+        <label className="block text-sm font-bold text-black mb-3 uppercase font-mono">
           Will you need the space during:
         </label>
         <div className="space-y-2">
@@ -78,9 +78,9 @@ export function RequirementsStep({
             <input
               type="checkbox"
               {...register('timeBlocks.dayHours')}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="rounded border-2 border-black text-red-600 focus:ring-black"
             />
-            <span className="ml-2 text-sm text-gray-700">
+            <span className="ml-2 text-sm text-black font-mono">
               Day hours (7am-7pm)
             </span>
           </label>
@@ -88,22 +88,22 @@ export function RequirementsStep({
             <input
               type="checkbox"
               {...register('timeBlocks.eveningHours')}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="rounded border-2 border-black text-red-600 focus:ring-black"
             />
-            <span className="ml-2 text-sm text-gray-700">
+            <span className="ml-2 text-sm text-black font-mono">
               Evening/after hours (7pm-11pm)
             </span>
           </label>
         </div>
         {!dayHours && !eveningHours && (
-          <p className="mt-1 text-sm text-red-600">
+          <p className="mt-1 text-sm text-red-600 font-mono">
             Please select at least one time block
           </p>
         )}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-3">
+        <label className="block text-sm font-bold text-black mb-3 uppercase font-mono">
           Services needed:
         </label>
         <div className="space-y-3">
@@ -111,13 +111,13 @@ export function RequirementsStep({
             <input
               type="checkbox"
               {...register('services.coffeeService')}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="rounded border-2 border-black text-red-600 focus:ring-black"
             />
-            <span className="ml-2 text-sm text-gray-700">Coffee service</span>
+            <span className="ml-2 text-sm text-black font-mono">Coffee service</span>
           </label>
 
           <div className="flex items-center">
-            <span className="text-sm text-gray-700 mr-4 min-w-[120px]">
+            <span className="text-sm text-black font-mono mr-4 min-w-[120px]">
               Pastry service:
             </span>
             <div className="flex gap-4">
@@ -127,9 +127,9 @@ export function RequirementsStep({
                     type="radio"
                     value={option}
                     {...register('services.pastryService')}
-                    className="text-blue-600 focus:ring-blue-500"
+                    className="text-red-600 focus:ring-black"
                   />
-                  <span className="ml-1 text-sm text-gray-700">{option}</span>
+                  <span className="ml-1 text-sm text-black font-mono">{option}</span>
                 </label>
               ))}
             </div>
@@ -139,22 +139,22 @@ export function RequirementsStep({
             <input
               type="checkbox"
               {...register('services.baristas')}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="rounded border-2 border-black text-red-600 focus:ring-black"
             />
-            <span className="ml-2 text-sm text-gray-700">Baristas</span>
+            <span className="ml-2 text-sm text-black font-mono">Baristas</span>
           </label>
 
           <label className="flex items-center">
             <input
               type="checkbox"
               {...register('services.alcoholService')}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="rounded border-2 border-black text-red-600 focus:ring-black"
             />
-            <span className="ml-2 text-sm text-gray-700">Alcohol service</span>
+            <span className="ml-2 text-sm text-black font-mono">Alcohol service</span>
           </label>
 
           <div className="flex items-center">
-            <span className="text-sm text-gray-700 mr-4 min-w-[120px]">
+            <span className="text-sm text-black font-mono mr-4 min-w-[120px]">
               AV Package:
             </span>
             <div className="flex gap-4">
@@ -164,9 +164,9 @@ export function RequirementsStep({
                     type="radio"
                     value={option}
                     {...register('services.avPackage')}
-                    className="text-blue-600 focus:ring-blue-500"
+                    className="text-red-600 focus:ring-black"
                   />
-                  <span className="ml-1 text-sm text-gray-700">{option}</span>
+                  <span className="ml-1 text-sm text-black font-mono">{option}</span>
                 </label>
               ))}
             </div>
@@ -175,13 +175,13 @@ export function RequirementsStep({
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
           Special requirements
         </label>
         <textarea
           {...register('specialRequirements')}
           rows={4}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-3 py-2 border-2 border-black bg-white text-white rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
           placeholder="Any additional requirements or notes..."
         />
       </div>
@@ -190,15 +190,15 @@ export function RequirementsStep({
         <button
           type="button"
           onClick={onBack}
-          className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+          className="px-6 py-2 border-2 border-black bg-white text-black rounded-md hover:bg-black hover:text-white transition-colors font-bold uppercase"
         >
-          ← Back
+          ← BACK
         </button>
         <button
           type="submit"
-          className="px-6 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-800 transition-colors"
+          className="px-6 py-2 border-2 border-black bg-black text-white rounded-md hover:bg-black/90 transition-colors font-bold uppercase"
         >
-          Continue →
+          CONTINUE →
         </button>
       </div>
     </form>

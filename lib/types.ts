@@ -34,7 +34,13 @@ export type InquiryStatus =
 export interface Venue {
   id: string
   name: string
-  image: string
+  images: string[]
+  address: string
+  hours: {
+    weekdays: string
+    weekends: string
+  }
+  description?: string
   squareFootage: number
   capacity: number
   fullDayBuyout: number

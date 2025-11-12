@@ -55,32 +55,32 @@ export function ContactStep({
     <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
             First name
           </label>
           <input
             type="text"
             {...register('firstName')}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border-2 border-black bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
           />
           {errors.firstName && (
-            <p className="mt-1 text-sm text-red-600">
+            <p className="mt-1 text-sm text-red-600 font-mono">
               {errors.firstName.message}
             </p>
           )}
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
             Last name
           </label>
           <input
             type="text"
             {...register('lastName')}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border-2 border-black bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
           />
           {errors.lastName && (
-            <p className="mt-1 text-sm text-red-600">
+            <p className="mt-1 text-sm text-red-600 font-mono">
               {errors.lastName.message}
             </p>
           )}
@@ -89,57 +89,57 @@ export function ContactStep({
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
             Email
           </label>
           <input
             type="email"
             {...register('email')}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border-2 border-black bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
           />
           {errors.email && (
-            <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+            <p className="mt-1 text-sm text-red-600 font-mono">{errors.email.message}</p>
           )}
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
             Phone
           </label>
           <input
             type="tel"
             {...register('phone')}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border-2 border-black bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
           />
           {errors.phone && (
-            <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
+            <p className="mt-1 text-sm text-red-600 font-mono">{errors.phone.message}</p>
           )}
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
           Organization name
         </label>
         <input
           type="text"
           {...register('organizationName')}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-3 py-2 border-2 border-black bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
         />
         {errors.organizationName && (
-          <p className="mt-1 text-sm text-red-600">
+          <p className="mt-1 text-sm text-red-600 font-mono">
             {errors.organizationName.message}
           </p>
         )}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
           Organization type
         </label>
         <select
           {...register('organizationType')}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-3 py-2 border-2 border-black bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
         >
           <option value="">Select organization type</option>
           <option value="Company">Company</option>
@@ -149,19 +149,19 @@ export function ContactStep({
           <option value="Other">Other</option>
         </select>
         {errors.organizationType && (
-          <p className="mt-1 text-sm text-red-600">
+          <p className="mt-1 text-sm text-red-600 font-mono">
             {errors.organizationType.message}
           </p>
         )}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
           Budget range
         </label>
         <select
           {...register('budget')}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-3 py-2 border-2 border-black bg-white text-black rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
         >
           <option value="">Select budget range</option>
           <option value="<$2k">Less than $2k</option>
@@ -171,7 +171,7 @@ export function ContactStep({
           <option value="$20k+">$20k+</option>
         </select>
         {errors.budget && (
-          <p className="mt-1 text-sm text-red-600">{errors.budget.message}</p>
+          <p className="mt-1 text-sm text-red-600 font-mono">{errors.budget.message}</p>
         )}
       </div>
 
@@ -179,15 +179,15 @@ export function ContactStep({
         <button
           type="button"
           onClick={onBack}
-          className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+          className="px-6 py-2 border-2 border-black bg-white text-black rounded-md hover:bg-black hover:text-white transition-colors font-bold uppercase"
         >
-          ← Back
+          ← BACK
         </button>
         <button
           type="submit"
-          className="px-6 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-800 transition-colors"
+          className="px-6 py-2 border-2 border-black bg-black text-white rounded-md hover:bg-black/90 transition-colors font-bold uppercase"
         >
-          Submit Request
+          SUBMIT REQUEST
         </button>
       </div>
     </form>
