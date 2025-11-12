@@ -85,6 +85,16 @@ export interface ContactInfo {
   budget: BudgetRange
 }
 
+export type ActivityType = 'note' | 'call' | 'email' | 'meeting' | 'status_change'
+
+export interface Activity {
+  id: string
+  type: ActivityType
+  content: string
+  createdAt: Date
+  createdBy?: string
+}
+
 export interface Inquiry {
   id: string
   eventBasics: EventBasics
@@ -94,6 +104,9 @@ export interface Inquiry {
   leadScore: number
   estimatedPrice: number
   submittedAt: Date
+  lastContactedAt?: Date
+  followUpDate?: Date
+  activities: Activity[]
 }
 
 export interface FormData {

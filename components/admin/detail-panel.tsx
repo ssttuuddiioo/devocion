@@ -1,15 +1,20 @@
 'use client'
 
+import { useState } from 'react'
 import { useInquiriesStore, useAdminStore } from '@/lib/store'
-import { InquiryStatus } from '@/lib/types'
+import { InquiryStatus, ActivityType } from '@/lib/types'
 import { getVenueById } from '@/lib/venues'
 import { getLeadScoreEmoji } from '@/lib/scoring'
 import { format } from 'date-fns'
-import { X, Mail, Phone, Copy, Trash2 } from 'lucide-react'
+import { X, Mail, Phone, Copy, Trash2, MessageSquare, PhoneCall, Mail as MailIcon, Calendar, Clock, Plus } from 'lucide-react'
 
 export function DetailPanel() {
-  const { inquiries, updateInquiryStatus, deleteInquiry } = useInquiriesStore()
+  const { inquiries, updateInquiryStatus, deleteInquiry, addActivity, updateLastContacted, setFollowUpDate } = useInquiriesStore()
   const { selectedInquiryId, setSelectedInquiry } = useAdminStore()
+  const [noteText, setNoteText] = useState('')
+  const [activityType, setActivityType] = useState<ActivityType>('note')
+  const [showNoteInput, setShowNoteInput] = useState(false)
+  const [followUpDateInput, setFollowUpDateInput] = useState('')
 
   if (!selectedInquiryId) return null
 
@@ -18,9 +23,13 @@ export function DetailPanel() {
 
   const venue = getVenueById(inquiry.eventBasics.venueId)
   const emoji = getLeadScoreEmoji(inquiry.leadScore)
+  const activities = inquiry.activities || []
 
   const handleStatusChange = (newStatus: InquiryStatus) => {
     updateInquiryStatus(inquiry.id, newStatus)
+    if (newStatus === 'CONTACTED' && !inquiry.lastContactedAt) {
+      updateLastContacted(inquiry.id, new Date())
+    }
   }
 
   const handleCopyEmail = () => {
@@ -36,6 +45,55 @@ export function DetailPanel() {
 
   const handleMarkContacted = () => {
     handleStatusChange('CONTACTED')
+    updateLastContacted(inquiry.id, new Date())
+    addActivity(inquiry.id, {
+      type: 'call',
+      content: 'Marked as contacted',
+    })
+  }
+
+  const handleAddNote = () => {
+    if (!noteText.trim()) return
+    
+    addActivity(inquiry.id, {
+      type: activityType,
+      content: noteText.trim(),
+    })
+    
+    if (activityType === 'call' || activityType === 'email') {
+      updateLastContacted(inquiry.id, new Date())
+    }
+    
+    setNoteText('')
+    setShowNoteInput(false)
+    setActivityType('note')
+  }
+
+  const handleSetFollowUp = () => {
+    if (followUpDateInput) {
+      const date = new Date(followUpDateInput)
+      setFollowUpDate(inquiry.id, date)
+      addActivity(inquiry.id, {
+        type: 'note',
+        content: `Follow-up scheduled for ${format(date, 'MMM d, yyyy')}`,
+      })
+      setFollowUpDateInput('')
+    }
+  }
+
+  const getActivityIcon = (type: ActivityType) => {
+    switch (type) {
+      case 'call':
+        return <PhoneCall className="w-4 h-4" />
+      case 'email':
+        return <MailIcon className="w-4 h-4" />
+      case 'meeting':
+        return <Calendar className="w-4 h-4" />
+      case 'status_change':
+        return <Clock className="w-4 h-4" />
+      default:
+        return <MessageSquare className="w-4 h-4" />
+    }
   }
 
   return (
@@ -263,6 +321,131 @@ export function DetailPanel() {
               </p>
             </div>
           )}
+
+          {/* Follow-up & Last Contacted */}
+          <div className="border-t border-gray-200 pt-4">
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              FOLLOW-UP & CONTACT
+            </h3>
+            <div className="space-y-3">
+              {inquiry.lastContactedAt && (
+                <div className="text-sm">
+                  <span className="text-gray-600">Last Contacted:</span>{' '}
+                  <span className="text-gray-900">
+                    {format(inquiry.lastContactedAt, 'MMM d, yyyy')} at{' '}
+                    {format(inquiry.lastContactedAt, 'h:mm a')}
+                  </span>
+                </div>
+              )}
+              {inquiry.followUpDate && (
+                <div className="text-sm">
+                  <span className="text-gray-600">Follow-up Date:</span>{' '}
+                  <span className="text-gray-900 font-semibold">
+                    {format(inquiry.followUpDate, 'MMM d, yyyy')}
+                  </span>
+                </div>
+              )}
+              <div className="flex gap-2">
+                <input
+                  type="date"
+                  value={followUpDateInput}
+                  onChange={(e) => setFollowUpDateInput(e.target.value)}
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm"
+                />
+                <button
+                  onClick={handleSetFollowUp}
+                  disabled={!followUpDateInput}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                >
+                  Set Follow-up
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Activity Timeline */}
+          <div className="border-t border-gray-200 pt-4">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-lg font-semibold text-gray-900">
+                ACTIVITY TIMELINE
+              </h3>
+              <button
+                onClick={() => setShowNoteInput(!showNoteInput)}
+                className="flex items-center gap-1 px-3 py-1.5 text-sm text-blue-600 hover:text-blue-700 border border-blue-600 rounded-md hover:bg-blue-50"
+              >
+                <Plus className="w-4 h-4" />
+                Add Note
+              </button>
+            </div>
+
+            {/* Add Note Input */}
+            {showNoteInput && (
+              <div className="mb-4 p-3 bg-gray-50 rounded-md border border-gray-200">
+                <select
+                  value={activityType}
+                  onChange={(e) => setActivityType(e.target.value as ActivityType)}
+                  className="w-full mb-2 px-2 py-1.5 border border-gray-300 rounded-md text-sm"
+                >
+                  <option value="note">Note</option>
+                  <option value="call">Call</option>
+                  <option value="email">Email</option>
+                  <option value="meeting">Meeting</option>
+                </select>
+                <textarea
+                  value={noteText}
+                  onChange={(e) => setNoteText(e.target.value)}
+                  placeholder="Add a note..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm mb-2"
+                  rows={3}
+                />
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleAddNote}
+                    disabled={!noteText.trim()}
+                    className="px-4 py-1.5 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowNoteInput(false)
+                      setNoteText('')
+                    }}
+                    className="px-4 py-1.5 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Activity List */}
+            <div className="space-y-3 max-h-96 overflow-y-auto">
+              {activities.length === 0 ? (
+                <p className="text-sm text-gray-500 italic">No activities yet</p>
+              ) : (
+                activities.map((activity) => (
+                  <div
+                    key={activity.id}
+                    className="flex gap-3 p-3 bg-gray-50 rounded-md border border-gray-200"
+                  >
+                    <div className="flex-shrink-0 mt-0.5 text-gray-500">
+                      {getActivityIcon(activity.type)}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm text-gray-900 whitespace-pre-wrap">
+                        {activity.content}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {format(activity.createdAt, 'MMM d, yyyy')} at{' '}
+                        {format(activity.createdAt, 'h:mm a')}
+                      </p>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
 
           <div className="border-t border-gray-200 pt-4">
             <div className="text-sm text-gray-500 mb-4">

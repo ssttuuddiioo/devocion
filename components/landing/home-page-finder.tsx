@@ -147,7 +147,7 @@ export function HomePageFinder() {
 
           {/* Description */}
           <p className="text-lg md:text-xl text-black font-mono">
-            Six stunning locations across New York City.
+            Six stunning locations across New York.
             <br />
             From intimate gatherings to grand
             <br />
@@ -196,34 +196,11 @@ export function HomePageFinder() {
               </div>
             </div>
 
-            <div className="flex-1 min-w-[150px]">
-              <label className="block text-sm font-bold text-black mb-2 uppercase font-mono">
-                COFFEE METHOD
-              </label>
-              <div className="relative">
-                <select
-                  value={coffeeMethod}
-                  onChange={(e) => setCoffeeMethod(e.target.value as CoffeeMethod)}
-                  className="w-full px-4 py-3 pr-10 border-2 border-black bg-white text-black rounded-md focus:outline-none focus:ring-2 focus:ring-black font-mono appearance-none cursor-pointer"
-                >
-                  <option value="">Any method</option>
-                  <option value="pour over">Pour Over</option>
-                  <option value="espresso">Espresso</option>
-                  <option value="french press">French Press</option>
-                  <option value="aeropress">AeroPress</option>
-                  <option value="cold">Cold</option>
-                  <option value="fast">Fast</option>
-                </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-black pointer-events-none" />
-              </div>
-            </div>
-
             <div className="flex items-end">
               <button
                 onClick={() => {
                   setLocation('')
                   setCapacity('')
-                  setCoffeeMethod('')
                 }}
                 className="px-6 py-3 border-2 border-black bg-white text-black rounded-md hover:bg-black hover:text-white transition-colors font-bold uppercase"
               >

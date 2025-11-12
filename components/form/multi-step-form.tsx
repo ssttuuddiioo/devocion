@@ -111,6 +111,7 @@ export function MultiStepForm(props: MultiStepFormProps = {}) {
       leadScore,
       estimatedPrice,
       submittedAt: new Date(),
+      activities: [],
     }
 
     addInquiry(inquiry)
