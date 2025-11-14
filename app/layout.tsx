@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/header'
+import { SiteProtection } from '@/components/auth/site-protection'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,8 +30,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="bg-brand-black">
-        <Header />
-        {children}
+        <SiteProtection password="pablorules">
+          <Header />
+          {children}
+        </SiteProtection>
       </body>
     </html>
   )
