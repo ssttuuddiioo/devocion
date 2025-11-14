@@ -4,6 +4,7 @@ import { StatsBar } from '@/components/admin/stats-bar'
 import { FilterBar } from '@/components/admin/filter-bar'
 import { InquiriesTable } from '@/components/admin/inquiries-table'
 import { DetailPanel } from '@/components/admin/detail-panel'
+import { PasswordProtection } from '@/components/auth/password-protection'
 import { useAdminStore, useInquiriesStore } from '@/lib/store'
 import { X, Bell } from 'lucide-react'
 import { useState } from 'react'
@@ -16,7 +17,8 @@ export default function AdminPage() {
   const newInquiriesCount = inquiries.filter((i) => i.status === 'NEW').length
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <PasswordProtection password="pablorules" storageKey="admin_password_authenticated">
+      <main className="min-h-screen bg-gray-50">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -63,6 +65,7 @@ export default function AdminPage() {
         </div>
       </div>
     </main>
+    </PasswordProtection>
   )
 }
 
